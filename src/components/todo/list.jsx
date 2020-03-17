@@ -1,21 +1,72 @@
 import React, {Component} from 'react'
+import TodoDataService from '../../api/todo/TodoDataService'
+import AuthServ from './auth'
+import moment from 'moment'
 
 class ListTodoComponet extends Component {
     constructor(props){
         super(props)
         this.state={
-            todojson : [
-                {id:1,description:'Aprender React',done:false,targetDate: new Date()},
-                {id:2,description:'Adquirir Experiência',done:false,targetDate: new Date()},
-                {id:3,description:'Ficar Rico :-P',done:false,targetDate: new Date()}
-            ]
+            todos : [],
+            message: null
         }
+        this.addTodoClicked = this.addTodoClicked.bind(this);
+        this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
+        this.updateTodoClicked = this.updateTodoClicked.bind(this);
+        this.refreshTodos=this.refreshTodos.bind(this);
     }
     
+    componentDidMount(){
+        this.refreshTodos();
+
+    }
+    refreshTodos(){
+        let username = AuthServ.getLoggedUser();
+        TodoDataService.listAllTodos(username)
+        .then(
+            response => {
+                //console.log(response);
+                this.setState({todos: response.data})
+            }
+
+        )
+
+    }
+    deleteTodoClicked(id){
+        let username = AuthServ.getLoggedUser();
+        TodoDataService.deleteTodo(username,id)
+        .then(
+            response => {
+                this.setState({message: `Lista ${id} excluída`})
+                this.refreshTodos()
+            }
+        )
+    }
+    updateTodoClicked(id){
+        let username = AuthServ.getLoggedUser();
+        this.props.history.push(`/todos/${id}`)
+        /*.then(
+            response => {
+                this.setState({message: `Lista ${id} excluída`})
+                this.refreshTodos()
+            }
+        )*/
+    }  
+    addTodoClicked(){
+        let username = AuthServ.getLoggedUser();
+        this.props.history.push('/todos/-1')
+        /*.then(
+            response => {
+                this.setState({message: `Lista ${id} excluída`})
+                this.refreshTodos()
+            }
+        )*/
+    }     
     render(){
         return (
             <div>
                 <h1>Lista A Fazer</h1>
+                {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
@@ -23,21 +74,29 @@ class ListTodoComponet extends Component {
                                 <th>descrição</th>
                                 <th>Finalzada</th>
                                 <th>Data Limite</th>
+                                <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.todojson.map(
+                                this.state.todos.map(
                                     todo=>
                             <tr key={todo.id}>
                                 <td>{todo.description}</td>
-                                <td>{todo.done.toString()}</td>
-                                <td>{todo.targetDate.toString()}</td>
+                                <td>{todo.isdone.toString()}</td>
+                                <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                <td>
+                                    <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Alterar</button>&nbsp;
+                                    <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Apagar</button>
+                                </td>
                             </tr>
                             )
                             }
                         </tbody>
                     </table>
+                    <div className="row">
+                        <button className="btn btn-success" onClick={() => this.addTodoClicked()}>Novo</button>
+                    </div>
                 </div>
             </div>
         )

@@ -32,7 +32,7 @@ class LoginComponent extends Component{
     }    
     */
    loginClicked(){
-        if(this.state.username=="jirous" && this.state.password=="asdfg"){
+        if(this.state.username==="jirous" && this.state.password==="asdfg"){
             //console.log('Sucesso')
             AuthServ.registerLogin(this.state.username,this.state.password);
             this.props.history.push(`/welcome/${this.state.username}`)
