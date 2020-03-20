@@ -72,8 +72,8 @@ class ListTodoComponet extends Component {
                         <thead>
                             <tr>
                                 <th>descrição</th>
-                                <th>Finalzada</th>
                                 <th>Data Limite</th>
+                                <th>Finalzada</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
@@ -83,8 +83,8 @@ class ListTodoComponet extends Component {
                                     todo=>
                             <tr key={todo.id}>
                                 <td>{todo.description}</td>
-                                <td>{todo.isdone.toString()}</td>
                                 <td>{moment(todo.targetDate).format('YYYY-MM-DD')}</td>
+                                <td>{todo.isDone.toString()}</td>
                                 <td>
                                     <button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Alterar</button>&nbsp;
                                     <button className="btn btn-warning" onClick={() => this.deleteTodoClicked(todo.id)}>Apagar</button>

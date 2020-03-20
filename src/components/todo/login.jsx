@@ -14,7 +14,7 @@ class LoginComponent extends Component{
         }
         //this.handlerUsernameChange = this.handlerUsernameChange.bind(this)
         //this.handlerPasswordChange = this.handlerPasswordChange.bind(this)
-        this.handlerChange = this.handlerChange.bind(this)
+        this.handlerChange = this.handlerChange.bind(this) 
         this.loginClicked = this.loginClicked.bind(this)
         
     }
@@ -32,18 +32,38 @@ class LoginComponent extends Component{
     }    
     */
    loginClicked(){
-        if(this.state.username==="jirous" && this.state.password==="asdfg"){
-            //console.log('Sucesso')
-            AuthServ.registerLogin(this.state.username,this.state.password);
-            this.props.history.push(`/welcome/${this.state.username}`)
-           // this.setState({showSuccessMessage:true})
-           // this.setState({hasLoginFailed:false})
+        // if(this.state.username==="jirous" && this.state.password==="asdfg"){
+        //     //console.log('Sucesso')
+        //     AuthServ.registerLogin(this.state.username,this.state.password);
+        //     this.props.history.push(`/welcome/${this.state.username}`)
+        //    // this.setState({showSuccessMessage:true})
+        //    // this.setState({hasLoginFailed:false})
 
-        }else{
-            console.log('Erro')
+        // }else{
+        //     console.log('Erro')
+        //     this.setState({showSuccessMessage:false})
+        //     this.setState({hasLoginFailed:true})
+        // }  
+        
+        // AuthServ.execBasicAuthServ(this.state.username,this.state.password)
+        // .then( () =>{
+        //         AuthServ.registerLogin(this.state.username,this.state.password)
+        //         this.props.history.push(`/welcome/${this.state.username}`)
+        // }
+        // ).catch( () => {
+        //     this.setState({showSuccessMessage:false})
+        //     this.setState({hasLoginFailed:true})
+        // }        )
+
+        AuthServ.execJwtAuthServ(this.state.username,this.state.password)
+        .then( (response) =>{
+                AuthServ.registerLoginJwt(this.state.username,response.data.token)
+                this.props.history.push(`/welcome/${this.state.username}`)
+        }
+        ).catch( () => {
             this.setState({showSuccessMessage:false})
             this.setState({hasLoginFailed:true})
-        }   
+        }        )       
         console.log(this.state); //event.target.value
     }
      

@@ -78,13 +78,22 @@ class WelcomeComponet extends Component {
     }
     
     handlerErrorResponse(error){
-        console.log(error.response);
-        this.setState({welcomeMessage: error.response.data.message})
+        console.log(error.response)
+        let errorMessage = '';
+
+        if (error.message)
+            errorMessage += error.message
+        
+        if (error.response && error.response.data.message){
+            errorMessage += error.response.data.message
+        }    
+        this.setState({welcomeMessage: errorMessage})
         
     }   
 
-
 }
+
+
 function ErrorComponent(){
     return <div>Endereço web inválido</div>
 }

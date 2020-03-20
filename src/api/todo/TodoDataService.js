@@ -1,42 +1,23 @@
 import axios from 'axios'
+import {API_URL,JPA_API_URL} from '../../Constants'
 
 class TodoDataService {
     listAllTodos(name){
-        return axios.get(`http://localhost:8080/users/${name}/todos`);
+        return axios.get(`${JPA_API_URL}/users/${name}/todos`);
 
    }
    deleteTodo(name,id){
-    return axios.delete(`http://localhost:8080/users/${name}/todos/${id}`);
+    return axios.delete(`${JPA_API_URL}/users/${name}/todos/${id}`);
     }
     updateTodo(name,id, todo){
-        return axios.put(`http://localhost:8080/users/${name}/todos/${id}`, todo);
+        return axios.put(`${JPA_API_URL}/users/${name}/todos/${id}`, todo);
         }
 
     createTodo(name, todo){
-        return axios.post(`http://localhost:8080/users/${name}/todos/`, todo);
+        return axios.post(`${JPA_API_URL}/users/${name}/todos/`, todo);
         }            
     showTodo(name,id){
-        return axios.get(`http://localhost:8080/users/${name}/todos/${id}`);
+        return axios.get(`${JPA_API_URL}/users/${name}/todos/${id}`);
     } 
 }
-/*
-class TodoDataService {
-    listAllTodos(name){
-        return axios.get(`https://criptonita.herokuapp.com/users/${name}/todos`);
-
-   }
-   deleteTodo(name,id){
-    return axios.delete(`https://criptonita.herokuapp.com/users/${name}/todos/${id}`);
-    }
-    updateTodo(name,id, todo){
-        return axios.put(`https://criptonita.herokuapp.com/users/${name}/todos/${id}`, todo);
-        }
-
-    createTodo(name, todo){
-        return axios.post(`https://criptonita.herokuapp.com/users/${name}/todos/`, todo);
-        }            
-    showTodo(name,id){
-        return axios.get(`https://criptonita.herokuapp.com/users/${name}/todos/${id}`);
-    }   
-}*/ 
 export default new TodoDataService()
