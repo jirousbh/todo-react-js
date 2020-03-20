@@ -1,18 +1,19 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
-import AuthRoute from './authRoute'
-import {LoginComponent,LogoutComponent} from './login'
-import ListTodoComponet from './list'
+import AuthRoute from '../todo/authRoute'
+import {LoginComponent,LogoutComponent} from '../todo/login'
+import ListTodoComponet from '../todo/list'
 import HeaderComponent from './head'
 import FooterComponent from './footer'
 import HelloWorldService from '../../api/todo/HelloWorldService'
-import TodoCP from './todoCP'
+import TodoCP from '../todo/todoCP'
 
-class TodoApp extends Component{
+
+class Menu extends Component{
     render(){ 
         return (
-            <div className="TodoApp">
+            <div className="menu">
                 <Router>
                     <>
                         <HeaderComponent/>
@@ -113,4 +114,4 @@ function ShowLoginSucess(props){
     return null
 }
 */
-export default TodoApp
+export default Menu
