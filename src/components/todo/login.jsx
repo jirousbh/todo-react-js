@@ -77,9 +77,9 @@ class LoginComponent extends Component{
                     {/*<ShowLoginSucess showSuccessMessage={this.state.showSuccessMessage} />*/}
                     {this.state.showSuccessMessage && <div>Login Sucedido</div>}
                     {this.state.hasLoginFailed && <div className="alert alert-danger">Dados Inválidos</div>}
-                    Usuário: <input type="text" name="username"  value={this.state.username} onChange={this.handlerChange} />
-                    Senha: <input type="password" name="password" value={this.state.password} onChange={this.handlerChange}/>
-                    <button className="btn-success" onClick={this.loginClicked}>Login</button>
+                    Usuário: <input className="form-control" type="text" name="username"  value={this.state.username} onChange={this.handlerChange} />
+                    Senha: <input className="form-control" type="password" name="password" value={this.state.password} onChange={this.handlerChange}/>
+                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
                 </div>
             </div>
         )
