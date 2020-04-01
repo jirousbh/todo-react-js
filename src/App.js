@@ -6,7 +6,8 @@ import React, { Component } from 'react';
 import Menu from './components/base-layout/menu'
 import logo from './logo.svg';
 import './App.css';
-import './bootstrap.css'
+import './bootstrap.css';
+import { trackPromise } from 'react-promise-tracker';
 
 function App() {
   return(

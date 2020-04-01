@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import AuthServ from './auth'
+import { trackPromise } from 'react-promise-tracker';
 
 class LoginComponent extends Component{
 
@@ -31,6 +32,7 @@ class LoginComponent extends Component{
         this.setState({password:event.target.value})
     }    
     */
+   
    loginClicked(){
         // if(this.state.username==="jirous" && this.state.password==="asdfg"){
         //     //console.log('Sucesso')
@@ -54,7 +56,7 @@ class LoginComponent extends Component{
         //     this.setState({showSuccessMessage:false})
         //     this.setState({hasLoginFailed:true})
         // }        )
-
+        trackPromise(
         AuthServ.execJwtAuthServ(this.state.username,this.state.password)
         .then( (response) =>{
                 AuthServ.registerLoginJwt(this.state.username,response.data.token)
@@ -64,7 +66,8 @@ class LoginComponent extends Component{
             this.setState({showSuccessMessage:false})
             this.setState({hasLoginFailed:true})
         }        )       
-        console.log(this.state); //event.target.value
+       // console.log(this.state); //event.target.value
+        );
     }
      
 
