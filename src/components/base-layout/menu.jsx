@@ -8,6 +8,7 @@ import NavbarPage from './head'
 import FooterComponent from './footer'
 import HelloWorldService from '../../api/todo/HelloWorldService'
 import TodoCP from '../todo/todoCP'
+import { trackPromise } from 'react-promise-tracker';
 
 
 class Menu extends Component{
@@ -69,9 +70,11 @@ class WelcomeComponet extends Component {
         //HelloWorldService.executeHelloWorldService()
        // .then(response => this.handlerOkResponse(response))
         //.catch(response => this.handlerErrorResponse(response))
+        trackPromise(
         HelloWorldService.executeHelloWorldPathVariableService('Cristiano')
         .then(response => this.handlerOkResponse(response))
         .catch(error => this.handlerErrorResponse(error))
+        );
     }
     handlerOkResponse(response){
         this.setState({welcomeMessage: response.data.message})

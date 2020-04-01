@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import TodoDataService from '../../api/todo/TodoDataService'
 import AuthServ from './auth'
 import moment from 'moment'
+import { trackPromise } from 'react-promise-tracker';
 
 class ListTodoComponet extends Component {
     constructor(props){
@@ -21,14 +22,16 @@ class ListTodoComponet extends Component {
 
     }
     refreshTodos(){
+        
         let username = AuthServ.getLoggedUser();
+        trackPromise(
         TodoDataService.listAllTodos(username)
         .then(
             response => {
                 //console.log(response);
                 this.setState({todos: response.data})
             }
-
+        )
         )
 
     }
